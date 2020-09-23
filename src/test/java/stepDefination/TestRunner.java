@@ -9,9 +9,9 @@ import io.cucumber.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features="src/test/resources/Features/GoogleSearch.feature", glue= {"stepDefination"},
-monochrome = true,
+monochrome = true, // Console output in readable format
 plugin = {"pretty", "html:test-output", "json:Json-Report/report.json", "junit:Junit-Report/report.xml"},
-dryRun = false,
+dryRun = false, //Check any undefined/pending step is available or not
 strict = true
 
 //plugin = {"pretty", "html:test-output"},
