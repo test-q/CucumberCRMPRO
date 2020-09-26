@@ -5,6 +5,11 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -21,8 +26,20 @@ public class LoginStep {
 	@Before
 	public void setUp() {
 		System.out.println("Browser is open");
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
+		
+//		ChromeOptions co = new ChromeOptions();
+//		DesiredCapabilities cap = new DesiredCapabilities().chrome();
+//		cap.setCapability(ChromeOptions.CAPABILITY, co.setAcceptInsecureCerts(true));
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver(cap);
+		
+		FirefoxOptions fo = new FirefoxOptions();
+		DesiredCapabilities cap = new DesiredCapabilities().firefox();
+		cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, fo.setAcceptInsecureCerts(true));
+		WebDriverManager.firefoxdriver().setup();
+		driver = new FirefoxDriver(fo);
+		
+		
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
@@ -53,6 +70,12 @@ public class LoginStep {
 	@Given("user is on login page")
 	public void user_is_on_login_page() {
 	    driver.get("https://classic.crmpro.com/index.html");
+	    try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	//This is hard coded username and password
